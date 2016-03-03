@@ -1,0 +1,31 @@
+@(addProductForm: Form[models.Product], user: models.User)
+
+
+
+
+
+@import helper._
+
+
+@main("New Product", user) {
+	<div class="container">
+		<h2>Add a new Product</h2>
+
+		
+		@form(action = routes.Application.addProductSubmit()) {
+		
+		
+		@inputText(addProductForm("id"), '_label -> "ID")
+		@inputText(addProductForm("name"), '_label -> "Name")
+		@inputText(addProductForm("description"), '_label -> "Description")
+		@inputText(addProductForm("category"), '_label -> "Category")
+		@inputText(addProductForm("stock"), '_label -> "Stock")
+		@inputText(addProductForm("price"), '_label -> "Price")
+		
+		
+		<div class="actions">
+			<input type="submit" value="Add Product" class="btn btn-primary">
+		</div>
+	</div>
+	}
+}

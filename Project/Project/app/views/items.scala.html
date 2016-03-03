@@ -1,0 +1,68 @@
+@(products: List[models.Product], user: models.User)
+
+
+@main("Products Page", user) {
+	
+	<!-- If the flash session contains a success message, show it -->
+	@if(flash.containsKey("success")){
+		<div class="alert-message warning">
+			@flash.get("success")
+		</div>
+	}
+	
+
+	<div class="container">
+		<table class="table table-bordered table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Category</th>
+							<th>Stock</th>
+							<th>Price</th>
+							<th> </th>
+							<th> </th>
+						</tr>
+					</head>
+					<tbody>
+					@for(p <- products) {
+						<tr>
+							<td>@p.id</td>
+							<td>@p.name</td>
+							<td>@p.description</td>
+							<td>@p.category</td>
+							<td>@p.stock</td>
+							<td>@p.price</td>
+							<!-- Edit product button -->
+			                 @if(user != null){
+							<td>
+								<a href="@routes.Application.updateProduct(p.id)" class="btn-xs btn-danger">
+								<span class="glyphicon glyphicon-pencil"></span></a>
+							</td>
+							
+							<td>
+								<a href="@routes.Application.deleteProduct(p.id)"class="btn-xs btn-danger" onclick="return confirmDel();"><span class="glyphicon glyphicon-trash"></span></a>
+							
+							</td>
+                            }
+						</tr>
+						}<!--End of for loop-->
+					</tbody>
+				</table>
+				
+				<script>
+				// JavaScript function returns true if user clicks yes, otherwise, false
+				function confirmDel() {
+					return confirm('Are You Sure?');
+				}
+				</script>
+				
+				<div>
+					<!-- Show a button/link to add products -->
+					<a href="@routes.Application.addProduct()"><button class="btn btn-primary">Add a Product</button></a>
+				</div>
+				
+	</div>
+
+}
